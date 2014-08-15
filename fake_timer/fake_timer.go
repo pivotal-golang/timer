@@ -1,7 +1,6 @@
 package fake_timer
 
 import (
-	"runtime"
 	"sync"
 	"time"
 )
@@ -54,7 +53,7 @@ func (t *FakeTimer) Now() time.Time {
 
 func (t *FakeTimer) Elapse(d time.Duration) {
 	// yield to other goroutines first
-	runtime.Gosched()
+	time.Sleep(10 * time.Millisecond)
 
 	t.Lock()
 	defer t.Unlock()
