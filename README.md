@@ -22,6 +22,7 @@ You can use the `Timer` to sleep, and to create one-time or recurring time chann
 ```go
 func MyFunction(timer timer.Timer) {
   timer.Sleep(3 * time.Second)
+  println("Done Sleeping")
 
   oneTime := timer.After(time.Minute)
   recurring := timer.Every(time.Second)
@@ -29,9 +30,9 @@ func MyFunction(timer timer.Timer) {
   for {
     select {
     case <-recurring:
-      println("tick")    
+      println("Tick")
     case <-oneTime:
-      println("tock")
+      println("Tock")
       return
     }
   }
@@ -54,16 +55,21 @@ go MyFunction(fakeTimer)
 You can now control the passage of time:
 
 ```go
+fakeTimer.Elapse(3 * time.Second)
+
+// output:
+// Done Sleeping
+
 fakeTimer.Elapse(time.Second)
 
 // output:
-// tick
+// Tick
 
 fakeTimer.Elapse(time.Minute)
 
 // output:
-// tick
-// tock
+// Tick
+// Tock
 ```
 
 
